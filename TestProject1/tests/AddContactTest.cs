@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson.IO;
+using System.Diagnostics.Contracts;
 using TestProject1.pageObjects;
 
 namespace TestProject1.tests
@@ -10,24 +7,27 @@ namespace TestProject1.tests
     [Parallelizable(ParallelScope.All)]
     public class AddContactTest : BaseTest
     {
-        [Test,TestCaseSource("ValidLogInCredentialsAndNewContact")]
-        public void AddNewContact(string userEmail, string password,string firstName, string lastName, string dateOfBirth, string contactEmail, string phone,
-            string streetAdd1, string streetAdd2, string city,string state, string postalCode, string country)
+        [Test, TestCaseSource("ValidLogInCredentialsAndNewContact")]
+        public void AddNewContact(AppUser user, ContactEntry contactEntry)
         {
             MainPage mainPage = new MainPage(GetDriver());
-            ContactListPage contactListPage = mainPage.ClickSubmitWithValidCredentials(userEmail, password);
+            ContactListPage contactListPage = mainPage.ClickSubmitWithValidCredentials(user.Email, user.Password);
             ContactPage contactPage = contactListPage.AddNewContact();
 
-            contactPage.AddContact(firstName,lastName, dateOfBirth, contactEmail, phone,streetAdd1,streetAdd2,city, state, postalCode, country);
+            contactPage.AddContact(contactEntry);
         }
 
         public static IEnumerable<TestCaseData> ValidLogInCredentialsAndNewContact()
         {
-            yield return new TestCaseData(GetDataParser().ExtractUserData("email"), GetDataParser().ExtractUserData("password"), GetDataParser().ExtractContactData("firstName"),
-                GetDataParser().ExtractContactData("lastName"), GetDataParser().ExtractContactData("dateOfBirth"), GetDataParser().ExtractContactData("email"),
-                GetDataParser().ExtractContactData("phone"), GetDataParser().ExtractContactData("streetAdd1"), GetDataParser().ExtractContactData("streetAdd2"),
-                GetDataParser().ExtractContactData("city"), GetDataParser().ExtractContactData("state"), GetDataParser().ExtractContactData("postalCode"),
-                GetDataParser().ExtractContactData("country"));
+            string workingDirectory = Environment.CurrentDirectory;
+            string projectDirecory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            string contactJsonFilePath = $"{projectDirecory}\\contactData.json";
+            string userJsonFilePath = $"{projectDirecory}\\userData.json";
+
+            ContactEntry contactEntry = Newtonsoft.Json.JsonConvert.DeserializeObject<ContactEntry>(File.ReadAllText(contactJsonFilePath));
+            AppUser user = Newtonsoft.Json.JsonConvert.DeserializeObject<AppUser>(File.ReadAllText(userJsonFilePath));
+
+            yield return new TestCaseData(user, contactEntry);
         }
     }
 }

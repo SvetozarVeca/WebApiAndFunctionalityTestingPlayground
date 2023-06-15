@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestProject1.tests;
 
 namespace TestProject1.pageObjects
 {
@@ -54,20 +55,19 @@ namespace TestProject1.pageObjects
         [FindsBy(How = How.Id, Using = "submit")]
         private IWebElement _AddContact;
 
-        public ContactListPage AddContact(string firstname, string lastName, string birthdate, string email, string phone, string street1, string street2,
-            string city, string state, string postalCode, string country)
+        public ContactListPage AddContact(ContactEntry contactEntry)
         {
-            _inputFirstName.SendKeys(firstname);
-            _inputLastName.SendKeys(lastName);
-            _inputBirthday.SendKeys(birthdate);
-            _inputEmail.SendKeys(email);
-            _inputPhone.SendKeys(phone);
-            _inputCity.SendKeys(city);
-            _inputState.SendKeys(state);
-            _inputStreet1.SendKeys(street1);
-            _inputStreet2.SendKeys(street2);
-            _inputPostalCode.SendKeys(postalCode);
-            _inputCountry.SendKeys(country);
+            _inputFirstName.SendKeys(contactEntry.firstName);
+            _inputLastName.SendKeys(contactEntry.lastName);
+            _inputBirthday.SendKeys(contactEntry.dateOfBirth);
+            _inputEmail.SendKeys(contactEntry.email);
+            _inputPhone.SendKeys(contactEntry.phone);
+            _inputCity.SendKeys(contactEntry.city);
+            _inputState.SendKeys(contactEntry.state);
+            _inputStreet1.SendKeys(contactEntry.streetAdd1);
+            _inputStreet2.SendKeys(contactEntry.streetAdd2);
+            _inputPostalCode.SendKeys(contactEntry.postalCode);
+            _inputCountry.SendKeys(contactEntry.country);
 
             _AddContact.Click();
 

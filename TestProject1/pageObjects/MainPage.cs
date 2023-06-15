@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using RazorEngine.Compilation.ImpromptuInterface;
 using SeleniumExtras.PageObjects;
-using TestProject1.utilities;
+using TestProject1.tests;
 
 namespace TestProject1.pageObjects
 {

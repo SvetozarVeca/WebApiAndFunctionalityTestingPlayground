@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestProject1.pageObjects;
-using TestProject1.utilities;
 
 namespace TestProject1.tests
 {

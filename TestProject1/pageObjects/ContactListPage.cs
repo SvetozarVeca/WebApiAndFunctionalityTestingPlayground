@@ -2,6 +2,7 @@
 
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
+using TestProject1.tests;
 
 namespace TestProject1.pageObjects
 {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,16 +12,21 @@ namespace TestProject1.tests
     public class SignInTest : BaseTest
     {
         [Test,TestCaseSource("AddValidLogInCredentials")]
-        public void ValidSignIn(string email,string password)
+        public void ValidSignIn(AppUser user)
         {
             MainPage mainPage = new MainPage(GetDriver());
-            mainPage.ClickSubmitWithValidCredentials(email,password);
+            mainPage.ClickSubmitWithValidCredentials(user.Email,user.Password);
 
         }
 
         public static IEnumerable<TestCaseData> AddValidLogInCredentials()
         {
-            yield return new TestCaseData(GetDataParser().ExtractUserData("email"), GetDataParser().ExtractUserData("password"));
+            AppUser user = new AppUser
+            {
+                Email = JsonReaderUtility.ExtractUserData("email"),
+                Password = JsonReaderUtility.ExtractUserData("password")
+            };
+            yield return new TestCaseData(user);
         }
     }
 

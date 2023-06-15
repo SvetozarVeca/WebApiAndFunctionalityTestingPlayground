@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebDriverManager.DriverConfigs.Impl;
 
-namespace TestProject1.utilities
+namespace TestProject1.tests
 {
     public class BaseTest
     {
@@ -45,7 +45,7 @@ namespace TestProject1.utilities
             _extentTest = _extent.CreateTest(TestContext.CurrentContext.Test.Name);
             _browserName = TestContext.Parameters["browserName"];
 
-            if (_browserName==null)
+            if (_browserName == null)
             {
                 _browserName = TestContext.Parameters["browserName"];
             }
@@ -66,7 +66,7 @@ namespace TestProject1.utilities
             DateTime time = DateTime.Now;
             string fileName = $"Screenshot_{time.ToString("hh mm ss")}.png";
 
-            if (result==TestStatus.Failed)
+            if (result == TestStatus.Failed)
             {
                 _extentTest.Fail("Test Failed", CaptureScreenshot(Driver.Value, fileName));
                 _extentTest.Log(Status.Fail, $"test failed with logtrace {stackTrace}");
@@ -93,7 +93,7 @@ namespace TestProject1.utilities
                     break;
                 case "Chrome":
                     new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
-                    Driver.Value = new ChromeDriver();                    
+                    Driver.Value = new ChromeDriver();
                     break;
             }
         }
@@ -105,9 +105,6 @@ namespace TestProject1.utilities
             return MediaEntityBuilder.CreateScreenCaptureFromBase64String(screenshot, screenshotName).Build();
         }
 
-        public static JsonReader GetDataParser()
-        {
-            return new JsonReader();
-        }
+       
     }
 }

@@ -2,7 +2,6 @@
 using OpenQA.Selenium.DevTools.V113.CSS;
 using System.Collections;
 using TestProject1.pageObjects;
-using TestProject1.utilities;
 
 namespace TestProject1.tests
 {
@@ -49,8 +48,8 @@ namespace TestProject1.tests
 
         public static IEnumerable<TestCaseData> AddTestConfigForValidSignUp()
         {
-            yield return new TestCaseData(BaseTest.GetDataParser().ExtractUserData("firstName"), BaseTest.GetDataParser().ExtractUserData("lastName"),
-                BaseTest.GetDataParser().ExtractUserData("email"), BaseTest.GetDataParser().ExtractUserData("password"));
+            yield return new TestCaseData(JsonReaderUtility.ExtractUserData("firstName"), JsonReaderUtility.ExtractUserData("lastName"),
+                JsonReaderUtility.ExtractUserData("email"), JsonReaderUtility.ExtractUserData("password"));
         }
     }
    
