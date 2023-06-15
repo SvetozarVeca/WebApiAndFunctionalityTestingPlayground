@@ -11,11 +11,11 @@ namespace TestProject1.tests
         [Test, TestCaseSource("AddTestConfigForValidSignUp")]
         public void SignUpWithValidCredentials(string firstName, string lastName, string email, string passWord)
         {
-            if (!ValidateNewUserEmailAndPasswordFormat.IsEmailValidFormat(email))
+            if (!ValidateNewUserEmailAndPasswordFormatUtility.IsEmailValidFormat(email))
             {
                 throw new ArgumentException("Not valid email");
             }
-            else if (!ValidateNewUserEmailAndPasswordFormat.IsPasswordValid(passWord))
+            else if (!ValidateNewUserEmailAndPasswordFormatUtility.IsPasswordValid(passWord))
             {
                 throw new ArgumentException("Not valid password");
             }

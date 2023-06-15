@@ -25,9 +25,8 @@ namespace TestProject1.tests
         [OneTimeSetUp]
         public void Setup()
         {
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirecory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
-            string reportPath = $"{projectDirecory}//index.html";
+
+            string reportPath = $"{GetProjectDirectory()}//index.html";
 
             ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(reportPath);
 
@@ -105,6 +104,14 @@ namespace TestProject1.tests
             return MediaEntityBuilder.CreateScreenCaptureFromBase64String(screenshot, screenshotName).Build();
         }
 
-       
+        public static string GetProjectDirectory()
+        {
+            string workingDirectory = Environment.CurrentDirectory;
+            string projectDirecory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+
+            return projectDirecory;
+        }
+
+
     }
 }

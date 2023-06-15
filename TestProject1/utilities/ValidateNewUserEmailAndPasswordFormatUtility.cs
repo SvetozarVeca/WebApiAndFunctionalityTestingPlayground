@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestProject1.utilities
 {
-    public static class ValidateNewUserEmailAndPasswordFormat
+    public static class ValidateNewUserEmailAndPasswordFormatUtility
     {
         public static bool IsEmailValidFormat(string email)
         {

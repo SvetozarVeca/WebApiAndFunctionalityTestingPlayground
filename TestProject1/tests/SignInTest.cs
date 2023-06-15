@@ -21,11 +21,9 @@ namespace TestProject1.tests
 
         public static IEnumerable<TestCaseData> AddValidLogInCredentials()
         {
-            AppUser user = new AppUser
-            {
-                Email = JsonReaderUtility.ExtractUserData("email"),
-                Password = JsonReaderUtility.ExtractUserData("password")
-            };
+            string userJsonFilePath = $"{GetProjectDirectory()}\\userData.json";
+            AppUser user = Newtonsoft.Json.JsonConvert.DeserializeObject<AppUser>(File.ReadAllText(userJsonFilePath)) ;
+            
             yield return new TestCaseData(user);
         }
     }

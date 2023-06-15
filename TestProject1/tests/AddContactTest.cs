@@ -19,10 +19,8 @@ namespace TestProject1.tests
 
         public static IEnumerable<TestCaseData> ValidLogInCredentialsAndNewContact()
         {
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirecory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
-            string contactJsonFilePath = $"{projectDirecory}\\contactData.json";
-            string userJsonFilePath = $"{projectDirecory}\\userData.json";
+            string contactJsonFilePath = $"{GetProjectDirectory()}\\contactData.json";
+            string userJsonFilePath = $"{GetProjectDirectory()}\\userData.json";
 
             ContactEntry contactEntry = Newtonsoft.Json.JsonConvert.DeserializeObject<ContactEntry>(File.ReadAllText(contactJsonFilePath));
             AppUser user = Newtonsoft.Json.JsonConvert.DeserializeObject<AppUser>(File.ReadAllText(userJsonFilePath));
