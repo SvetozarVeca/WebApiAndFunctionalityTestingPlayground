@@ -1,0 +1,13 @@
+{
+  "firstName": "Pera",
+  "lastName": "Peric",
+  "dateOfBirth": "1995-01-18",
+  "email": "peraperic@yahoo.com",
+  "phone": "123123123",
+  "streetAdd1": "kralja petra",
+  "streetAdd2": "kralja aleksandra",
+  "city": "Beograd",
+  "state": "Srbija",
+  "postalCode": "11000",
+  "country" : "Srbija"
+}
