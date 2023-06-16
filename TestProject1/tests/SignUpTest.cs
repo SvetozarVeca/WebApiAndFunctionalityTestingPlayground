@@ -9,20 +9,20 @@ namespace TestProject1.tests
     public class SignUpTest : BaseTest
     {
         [Test, TestCaseSource("AddTestConfigForValidSignUp")]
-        public void SignUpWithValidCredentials(string firstName, string lastName, string email, string passWord)
+        public void SignUpWithValidCredentials(AppUser user)
         {
-            if (!ValidateNewUserEmailAndPasswordFormatUtility.IsEmailValidFormat(email))
+            if (!ValidateNewUserEmailAndPasswordFormatUtility.IsEmailValidFormat(user.Email))
             {
                 throw new ArgumentException("Not valid email");
             }
-            else if (!ValidateNewUserEmailAndPasswordFormatUtility.IsPasswordValid(passWord))
+            else if (!ValidateNewUserEmailAndPasswordFormatUtility.IsPasswordValid(user.Password))
             {
                 throw new ArgumentException("Not valid password");
             }
 
             MainPage mainPage = new(GetDriver());
             SignUpPage signUpPage = mainPage.ClickToSignUp();
-            signUpPage.SubmitSignUp(firstName, lastName, email, passWord);
+            signUpPage.SubmitSignUp(user.FirstName, user.LastName, user.Email, user.Password);
 
             signUpPage.WaitForErrorMsg();
 
@@ -42,14 +42,15 @@ namespace TestProject1.tests
 
             signUpPage.WaitForErrorMsg();
 
-            Assert.IsTrue(signUpPage.GetErrorMsg() != null);
+            Assert.IsTrue(signUpPage.GetErrorMsg().Displayed);
         }
 
 
         public static IEnumerable<TestCaseData> AddTestConfigForValidSignUp()
         {
-            yield return new TestCaseData(JsonReaderUtility.ExtractUserData("firstName"), JsonReaderUtility.ExtractUserData("lastName"),
-                JsonReaderUtility.ExtractUserData("email"), JsonReaderUtility.ExtractUserData("password"));
+            AppUser user = ConvertJsonToAppUser();
+
+            yield return new TestCaseData(user);
         }
     }
    

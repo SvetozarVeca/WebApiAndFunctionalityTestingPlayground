@@ -57,17 +57,17 @@ namespace TestProject1.pageObjects
 
         public ContactListPage AddContact(ContactEntry contactEntry)
         {
-            _inputFirstName.SendKeys(contactEntry.firstName);
-            _inputLastName.SendKeys(contactEntry.lastName);
-            _inputBirthday.SendKeys(contactEntry.dateOfBirth);
-            _inputEmail.SendKeys(contactEntry.email);
-            _inputPhone.SendKeys(contactEntry.phone);
-            _inputCity.SendKeys(contactEntry.city);
-            _inputState.SendKeys(contactEntry.state);
-            _inputStreet1.SendKeys(contactEntry.streetAdd1);
-            _inputStreet2.SendKeys(contactEntry.streetAdd2);
-            _inputPostalCode.SendKeys(contactEntry.postalCode);
-            _inputCountry.SendKeys(contactEntry.country);
+            _inputFirstName.SendKeys(contactEntry.FirstName);
+            _inputLastName.SendKeys(contactEntry.LastName);
+            _inputBirthday.SendKeys(contactEntry.DateOfBirth);
+            _inputEmail.SendKeys(contactEntry.Email);
+            _inputPhone.SendKeys(contactEntry.Phone);
+            _inputCity.SendKeys(contactEntry.City);
+            _inputState.SendKeys(contactEntry.State);
+            _inputStreet1.SendKeys(contactEntry.StreetAdd1);
+            _inputStreet2.SendKeys(contactEntry.StreetAdd2);
+            _inputPostalCode.SendKeys(contactEntry.PostalCode);
+            _inputCountry.SendKeys(contactEntry.Country);
 
             _AddContact.Click();
 

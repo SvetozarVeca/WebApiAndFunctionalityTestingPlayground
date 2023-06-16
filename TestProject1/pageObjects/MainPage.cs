@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using RazorEngine.Compilation.ImpromptuInterface;
 using SeleniumExtras.PageObjects;
 using TestProject1.tests;
@@ -27,6 +28,14 @@ namespace TestProject1.pageObjects
         [FindsBy(How = How.Id, Using = "password")]
         private IWebElement _inputPassword;
 
+        [FindsBy(How = How.Id, Using = "error")]
+        private IWebElement _errorMsg;
+
+        public IWebElement GetErrorMsg()
+        {
+            return _errorMsg;
+        }
+
         public ContactListPage ClickSubmitWithValidCredentials(string email, string password)
         {
             _inputEmail.SendKeys(email);
@@ -37,10 +46,24 @@ namespace TestProject1.pageObjects
             return new ContactListPage(_driver);
         }
 
+        public void ClickSubmitWithInvalidCredentials(string email, string password)
+        {
+            _inputEmail.SendKeys(email);
+            _inputPassword.SendKeys(password);
+
+            _logIn.Click();
+        }
+
         public SignUpPage ClickToSignUp()
         {
             _signUpBtn.Click();
             return new SignUpPage(_driver);
+        }
+
+        public void WaitForErrorMsg()
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(8));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("error")));
         }
     }
 }

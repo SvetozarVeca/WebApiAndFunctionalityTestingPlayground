@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,5 +31,21 @@ namespace TestProject1.utilities
             string myJsonString = File.ReadAllText($"../../../contactData.json");
             return JToken.Parse(myJsonString);
         }
+
+        public static AppUser ConvertJsonToAppUser()
+        {
+            string userJsonFilePath = $"{GetProjectDirectory()}\\userData.json";
+            return JsonConvert.DeserializeObject<AppUser>(File.ReadAllText(userJsonFilePath));
+        }
+
+        public static ContactEntry ConvertJsonToContactEntry()
+        {
+            string contactJsonFilePath = $"{GetProjectDirectory()}\\contactData.json";
+            return JsonConvert.DeserializeObject<ContactEntry>(File.ReadAllText(contactJsonFilePath));
+        }
+
+
+
+
     }
 }

@@ -1,6 +1,5 @@
-﻿using MongoDB.Bson.IO;
-using System.Diagnostics.Contracts;
-using TestProject1.pageObjects;
+﻿using TestProject1.pageObjects;
+
 
 namespace TestProject1.tests
 {
@@ -18,12 +17,10 @@ namespace TestProject1.tests
         }
 
         public static IEnumerable<TestCaseData> ValidLogInCredentialsAndNewContact()
-        {
-            string contactJsonFilePath = $"{GetProjectDirectory()}\\contactData.json";
-            string userJsonFilePath = $"{GetProjectDirectory()}\\userData.json";
+        {           
 
-            ContactEntry contactEntry = Newtonsoft.Json.JsonConvert.DeserializeObject<ContactEntry>(File.ReadAllText(contactJsonFilePath));
-            AppUser user = Newtonsoft.Json.JsonConvert.DeserializeObject<AppUser>(File.ReadAllText(userJsonFilePath));
+            ContactEntry contactEntry = ConvertJsonToContactEntry();
+            AppUser user = ConvertJsonToAppUser();
 
             yield return new TestCaseData(user, contactEntry);
         }
