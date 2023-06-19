@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Models
+{
+    public class MappingChildToParent
+
+    {
+        public static TDATA Map<TDATA>(object oldObject) where TDATA : new()
+        {
+
+            TDATA newObject = new TDATA();
+            try
+            {
+                if (oldObject == null) return newObject;
+
+                Type newObjType = typeof(TDATA);
+                Type oldObjType = oldObject.GetType();
+                var propertyList = newObjType.GetProperties();
+
+                if (propertyList.Length > 0)
+                {
+                    foreach (var newObjProp in propertyList)
+                    {
+                        var oldProp = oldObjType.GetProperty(newObjProp.Name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.IgnoreCase | BindingFlags.ExactBinding);
+
+                        if (oldProp != null && oldProp.CanRead && newObjProp.CanWrite)
+                        {
+                            var oldPropertyType = oldProp.PropertyType;
+                            var newPropertyType = newObjProp.PropertyType;
+
+                            if (oldPropertyType.IsGenericType && oldPropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)) oldPropertyType = oldPropertyType.GetGenericArguments()[0];
+
+                            if (newPropertyType.IsGenericType && newPropertyType.GetGenericTypeDefinition() == typeof(Nullable<>)) newPropertyType = newPropertyType.GetGenericArguments()[0];
+
+                            if (newPropertyType == oldPropertyType)
+                            {
+                                var value = oldProp.GetValue(oldObject);
+
+                                newObjProp.SetValue(newObject, value);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return newObject;
+        }
+    }
+}

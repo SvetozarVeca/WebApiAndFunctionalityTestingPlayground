@@ -55,17 +55,17 @@ namespace TestProject1.pageObjects
         [FindsBy(How = How.Id, Using = "submit")]
         private IWebElement _AddContact;
 
-        public ContactListPage AddContact(ContactEntry contactEntry)
+        public ContactListPage AddContact(ContactDTOFromUser contactEntry)
         {
             _inputFirstName.SendKeys(contactEntry.FirstName);
             _inputLastName.SendKeys(contactEntry.LastName);
-            _inputBirthday.SendKeys(contactEntry.DateOfBirth);
+            _inputBirthday.SendKeys(contactEntry.Birthdate);
             _inputEmail.SendKeys(contactEntry.Email);
             _inputPhone.SendKeys(contactEntry.Phone);
             _inputCity.SendKeys(contactEntry.City);
-            _inputState.SendKeys(contactEntry.State);
-            _inputStreet1.SendKeys(contactEntry.StreetAdd1);
-            _inputStreet2.SendKeys(contactEntry.StreetAdd2);
+            _inputState.SendKeys(contactEntry.StateProvince);
+            _inputStreet1.SendKeys(contactEntry.Street1);
+            _inputStreet2.SendKeys(contactEntry.Street2);
             _inputPostalCode.SendKeys(contactEntry.PostalCode);
             _inputCountry.SendKeys(contactEntry.Country);
 

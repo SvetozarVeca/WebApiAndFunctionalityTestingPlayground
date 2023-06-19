@@ -1,6 +1,7 @@
 ﻿
 
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using TestProject1.tests;
 
@@ -27,5 +28,10 @@ namespace TestProject1.pageObjects
 
         }
 
+        public void WaitForAddNewContact()
+        {
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(8));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("add-contact")));
+        }
     }
 }

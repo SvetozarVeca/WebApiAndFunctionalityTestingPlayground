@@ -9,7 +9,7 @@ namespace TestProject1.tests
     public class SignUpTest : BaseTest
     {
         [Test, TestCaseSource("AddTestConfigForValidSignUp")]
-        public void SignUpWithValidCredentials(AppUser user)
+        public void SignUpWithValidCredentials(AppUserDTOFromUser user)
         {
             if (!ValidateNewUserEmailAndPasswordFormatUtility.IsEmailValidFormat(user.Email))
             {
@@ -22,14 +22,12 @@ namespace TestProject1.tests
 
             MainPage mainPage = new(GetDriver());
             SignUpPage signUpPage = mainPage.ClickToSignUp();
-            signUpPage.SubmitSignUp(user.FirstName, user.LastName, user.Email, user.Password);
+            ContactListPage contactListPage = signUpPage.SubmitSignUp(user.FirstName, user.LastName, user.Email, user.Password);
 
             signUpPage.WaitForErrorMsg();
 
-            if (signUpPage.GetErrorMsg().Text.Contains("Email address is already in use"))
-            {
-                throw new ArgumentException("Email already in use");
-            }
+            Assert.False(signUpPage.GetErrorMsg().Text.Contains("Email address is already in use"));
+            Assert.IsNotNull(contactListPage);
 
         }
 
@@ -48,7 +46,7 @@ namespace TestProject1.tests
 
         public static IEnumerable<TestCaseData> AddTestConfigForValidSignUp()
         {
-            AppUser user = ConvertJsonToAppUser();
+            AppUserDTOFromUser user = JsonReaderUtility.GetAppUserFromJsonFile();
 
             yield return new TestCaseData(user);
         }

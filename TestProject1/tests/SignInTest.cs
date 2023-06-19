@@ -6,19 +6,21 @@ namespace TestProject1.tests
     [Parallelizable(ParallelScope.All)]
     public class SignInTest : BaseTest
     {
-        [Test, TestCaseSource("AddValidLogInCredentials")]
-        public void ValidSignIn(AppUser user)
+        [Test, TestCaseSource("AddValidLogInCredentials"), Category("SignInTests")]
+        public void ValidSignIn(AppUserDTOFromUser user)
         {
             MainPage mainPage = new MainPage(GetDriver());
-            mainPage.ClickSubmitWithValidCredentials(user.Email, user.Password);
+            ContactListPage contactListPage = mainPage.ClickSubmitWithValidCredentials(user.Email, user.Password);
+
+            Assert.IsNotNull(contactListPage);
 
         }
 
-        [Test]
+        [Test, Category("SignInTests")]
         public void InvalidSignInCatchErrorMsg()
         {
             MainPage mainPage = new MainPage(GetDriver());
-            mainPage.ClickSubmitWithInvalidCredentials("wrongUsername", "wrongPassword");
+            mainPage.ClickSubmitWithInvalidCredentials("testertester@test.com", "test111");
 
             mainPage.WaitForErrorMsg();
 
@@ -27,7 +29,7 @@ namespace TestProject1.tests
 
         public static IEnumerable<TestCaseData> AddValidLogInCredentials()
         {
-            AppUser user = ConvertJsonToAppUser();
+            AppUserDTOFromUser user = JsonReaderUtility.GetAppUserFromJsonFile();
 
             yield return new TestCaseData(user);
         }

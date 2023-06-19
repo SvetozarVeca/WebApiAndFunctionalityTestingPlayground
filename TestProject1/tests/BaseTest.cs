@@ -17,7 +17,7 @@ namespace TestProject1.tests
 {
     public class BaseTest
     {
-        public ThreadLocal<IWebDriver> Driver = new ThreadLocal<IWebDriver>();
+        private ThreadLocal<IWebDriver> _driver = new ThreadLocal<IWebDriver>();
         private string _browserName;
         private ExtentReports _extent;
         private ExtentTest _extentTest;
@@ -25,7 +25,7 @@ namespace TestProject1.tests
         [OneTimeSetUp]
         public void Setup()
         {
-            string reportPath = $"{GetProjectDirectory()}//index.html";
+            string reportPath = $"{FileSystemUtility.GetProjectDirectory()}//index.html";
 
             ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(reportPath);
 
@@ -50,9 +50,9 @@ namespace TestProject1.tests
 
             InitBrowser(_browserName);
 
-            Driver.Value.Manage().Window.Maximize();
-            Driver.Value.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            Driver.Value.Navigate().GoToUrl("https://thinking-tester-contact-list.herokuapp.com/");
+            _driver.Value.Manage().Window.Maximize();
+            _driver.Value.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            _driver.Value.Navigate().GoToUrl("https://thinking-tester-contact-list.herokuapp.com/");
 
         }
 
@@ -66,15 +66,20 @@ namespace TestProject1.tests
 
             if (result == TestStatus.Failed)
             {
-                _extentTest.Fail("Test Failed", CaptureScreenshot(Driver.Value, fileName));
+                _extentTest.Fail("Test Failed", CaptureScreenshot(_driver.Value, fileName));
                 _extentTest.Log(Status.Fail, $"test failed with logtrace {stackTrace}");
             }
+
+            _extent.Flush();
+            _driver.Value.Close();
         }
 
         public IWebDriver GetDriver()
         {
-            return Driver.Value;
+            return _driver.Value;
         }
+
+        // public IWebDriver Driver => _driver.Value; RAZMISLITE MALO O TOME
 
 
         public void InitBrowser(string browserName)
@@ -83,15 +88,15 @@ namespace TestProject1.tests
             {
                 case "Firefox":
                     new WebDriverManager.DriverManager().SetUpDriver(new FirefoxConfig());
-                    Driver.Value = new FirefoxDriver();
+                    _driver.Value = new FirefoxDriver();
                     break;
                 case "Edge":
                     new WebDriverManager.DriverManager().SetUpDriver(new EdgeConfig());
-                    Driver.Value = new EdgeDriver();
+                    _driver.Value = new EdgeDriver();
                     break;
                 case "Chrome":
                     new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
-                    Driver.Value = new ChromeDriver();
+                    _driver.Value = new ChromeDriver();
                     break;
             }
         }
@@ -102,9 +107,5 @@ namespace TestProject1.tests
             string screenshot = ts.GetScreenshot().AsBase64EncodedString;
             return MediaEntityBuilder.CreateScreenCaptureFromBase64String(screenshot, screenshotName).Build();
         }
-
-      
-
-
     }
 }

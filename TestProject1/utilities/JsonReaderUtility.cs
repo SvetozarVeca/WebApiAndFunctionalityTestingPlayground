@@ -11,9 +11,9 @@ namespace TestProject1.utilities
     public static class JsonReaderUtility
     {
 
-        public static string ExtractUserData(string tokenName)
+        public static string? ExtractUserData(string tokenName)
         {
-            return ExtractUserJToken().SelectToken(tokenName).Value<string>();
+            return ExtractUserJToken()?.SelectToken(tokenName)?.Value<string>();
         }
         public static string ExtractContactData(string tokenName)
         {
@@ -23,25 +23,29 @@ namespace TestProject1.utilities
         private static JToken ExtractUserJToken()
         {
             string myJsonString = File.ReadAllText($"../../../userData.json");
+
             return JToken.Parse(myJsonString);
         }
 
         private static JToken ExtractContactJToken()
         {
             string myJsonString = File.ReadAllText($"../../../contactData.json");
+
             return JToken.Parse(myJsonString);
         }
 
-        public static AppUser ConvertJsonToAppUser()
+        public static AppUserDTOFromUser GetAppUserFromJsonFile()
         {
-            string userJsonFilePath = $"{GetProjectDirectory()}\\userData.json";
-            return JsonConvert.DeserializeObject<AppUser>(File.ReadAllText(userJsonFilePath));
+            string userJsonFilePath = $"{FileSystemUtility.GetProjectDirectory()}\\userData.json";
+
+            return JsonConvert.DeserializeObject<AppUserDTOFromUser>(File.ReadAllText(userJsonFilePath));
         }
 
-        public static ContactEntry ConvertJsonToContactEntry()
+        public static ContactDTOFromUser GetContactEntryFromJsonFile()
         {
-            string contactJsonFilePath = $"{GetProjectDirectory()}\\contactData.json";
-            return JsonConvert.DeserializeObject<ContactEntry>(File.ReadAllText(contactJsonFilePath));
+            string contactJsonFilePath = $"{FileSystemUtility.GetProjectDirectory()}\\contactData.json";
+
+            return JsonConvert.DeserializeObject<ContactDTOFromUser>(File.ReadAllText(contactJsonFilePath));
         }
 
 

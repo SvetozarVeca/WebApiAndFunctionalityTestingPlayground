@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
-    public class AppUser
+    public class AppUserDTOFromUser
     {
         [EmailAddress]
         public string Email { get; set; }
