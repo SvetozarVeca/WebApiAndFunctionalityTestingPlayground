@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace TestProject1.tests.APITests
 {
+    [Parallelizable(ParallelScope.All)]
     public class GetContactListAPITest
     {
         [Test]

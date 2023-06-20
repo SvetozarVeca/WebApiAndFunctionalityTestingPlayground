@@ -9,6 +9,8 @@ namespace Services
         public Task<List<ContactDTOFromDB>> GetList();
 
         public Task<string> Update(string id, ContactDTOFromDB newContact);
+
+        public Task<string> Delete(string id);
     }
 
 }
