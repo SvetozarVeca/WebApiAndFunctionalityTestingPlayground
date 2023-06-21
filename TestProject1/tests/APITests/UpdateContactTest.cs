@@ -36,7 +36,7 @@ namespace TestProject1.tests.APITests
             
             string response = await contactService.Update(contact.Id, contact);
 
-            Assert.AreEqual("No such contact", response);
+            Assert.AreEqual("Bad Request", response);
 
         }
     }

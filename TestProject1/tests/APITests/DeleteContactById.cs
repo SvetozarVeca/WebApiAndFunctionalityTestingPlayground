@@ -26,7 +26,7 @@ namespace TestProject1.tests.APITests
 
             string response = await contactService.Delete("wrongId");
 
-            Assert.AreEqual("Contact doesn't exist", response);
+            Assert.AreEqual("Bad Request", response);
 
         }
     }

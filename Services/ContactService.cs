@@ -38,7 +38,8 @@ namespace Services
 
             if (contacts.FirstOrDefault(x=>x.Id == id)==null)
             {
-                return "No such contact";
+                var resultFail = await HttpClient.PutAsJsonAsync<ContactDTOFromDB>(uri, newContact);
+                return resultFail.ReasonPhrase;
             }            
 
             var result = await HttpClient.PutAsJsonAsync<ContactDTOFromDB>(uri, newContact);
@@ -56,7 +57,8 @@ namespace Services
 
             if (contacts.FirstOrDefault(x => x.Id == id) == null)
             {
-                return "Contact doesn't exist";
+                var resultFail = await HttpClient.DeleteAsync(uri); 
+                return resultFail.ReasonPhrase;
             }
 
             ContactDTOFromDB? contact = contacts.FirstOrDefault(x => x.Id == id);
