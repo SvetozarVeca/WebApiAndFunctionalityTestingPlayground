@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using RazorEngine.Compilation.ImpromptuInterface;
 using SeleniumExtras.PageObjects;
 using TestProject1.tests;
 

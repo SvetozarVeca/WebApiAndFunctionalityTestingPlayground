@@ -1,11 +1,7 @@
 ﻿using Models;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
+using Utilities;
 
 namespace Services
 {
@@ -20,30 +16,20 @@ namespace Services
             _httpClient = new();
         }
 
-        public async Task<string> LogInAndGetToken()
+        public async Task LogInAndAuthorize()
         {
-            AppUserDTOFromUser userDTO = ConvertJsonToAppUser();
-            LogInUser loginUser = new LogInUser { email = userDTO.Email , password = userDTO.Password};
+            AppUserDTOFromUser userDTO = JsonReaderUtility.GetAppUserFromJsonFile();
+            LogInUserDTO loginUser = new LogInUserDTO { Email = userDTO.Email , Password = userDTO.Password};
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_tokenURI, loginUser);
             string token = response.Content.ReadFromJsonAsync<LogInDTOFromDB>().Result.token;
 
-            return token;
+            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            
         }
 
         public HttpClient HttpClient => _httpClient;
-
-        private static AppUserDTOFromUser ConvertJsonToAppUser()
-        {
-            string userJsonFilePath = "../../../userData.json";
-            return JsonConvert.DeserializeObject<AppUserDTOFromUser>(File.ReadAllText(userJsonFilePath));
-        }
-
-        private class LogInUser
-        {
-            public string email { get; set; }
-
-            public string password { get; set; }
-        }
+       
+               
     }
 }

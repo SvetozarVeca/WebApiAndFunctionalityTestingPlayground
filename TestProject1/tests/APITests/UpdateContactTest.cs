@@ -1,17 +1,12 @@
 ﻿using Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
+using Utilities;
 
 namespace TestProject1.tests.APITests
 {
-    [Parallelizable(ParallelScope.All)]
+    
     public class UpdateContactTest
     {
-        [Test]
+        [Test, Category("APITests")]
         public async Task UpdateContact()
         {
             IContactService contactService = new ContactService();
@@ -27,7 +22,7 @@ namespace TestProject1.tests.APITests
             Assert.AreEqual("OK", response);
         }
 
-        [Test]
+        [Test, Category("APITests")]
         public async Task UpdateContactWithWrongIdShouldReturnBadResponseMessage()
         {
             IContactService contactService = new ContactService();

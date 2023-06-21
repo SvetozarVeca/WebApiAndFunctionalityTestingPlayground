@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http2.HPack;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Mail;
 
-namespace TestProject1.utilities
+namespace Utilities
 {
     public static class ValidateNewUserEmailAndPasswordFormatUtility
     {

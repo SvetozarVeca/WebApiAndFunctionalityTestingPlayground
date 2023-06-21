@@ -1,7 +1,5 @@
-﻿
-using OpenQA.Selenium.DevTools.V113.CSS;
-using System.Collections;
-using TestProject1.pageObjects;
+﻿using TestProject1.pageObjects;
+using Utilities;
 
 namespace TestProject1.tests
 {

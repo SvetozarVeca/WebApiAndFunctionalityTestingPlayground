@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
@@ -13,5 +12,8 @@ namespace Models
         public string LastName { get; set; }
 
         public string Password { get; set; }
+
+        
     }
+   
 }

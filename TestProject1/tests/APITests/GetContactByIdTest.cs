@@ -1,16 +1,11 @@
 ﻿using Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestProject1.tests.APITests
 {
-    [Parallelizable(ParallelScope.All)]
+  
     public class GetContactByIdTest
     {
-        [Test]
+        [Test, Category("APITests")]
         public async Task GetContactByIdShouldReturnContact()
         {
             IContactService contactService = new ContactService();
@@ -21,7 +16,7 @@ namespace TestProject1.tests.APITests
             Assert.IsNotNull(contact);
         }
 
-        [Test]
+        [Test, Category("APITests")]
         public async Task GetContactByFailIdShouldReturnNull()
         {
             IContactService contactService = new ContactService();

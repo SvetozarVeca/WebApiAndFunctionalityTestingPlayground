@@ -1,16 +1,11 @@
 ﻿using Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestProject1.tests.APITests
 {
-    [Parallelizable(ParallelScope.All)]
+    
     public class DeleteContactById
     {
-        [Test]
+        [Test, Category("APITests")]
         public async Task DeleteContact()
         {
             IContactService contactService = new ContactService();
@@ -22,7 +17,7 @@ namespace TestProject1.tests.APITests
             Assert.AreEqual("OK", response);
         }
 
-        [Test]
+        [Test, Category("APITests")]
         public async Task DeleteContactWithWrongIdShouldReturnBadResponseMessage()
         {
             IContactService contactService = new ContactService();

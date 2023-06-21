@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using TestProject1.pageObjects;
+﻿using TestProject1.pageObjects;
+using Utilities;
 
 namespace TestProject1.tests
 {
