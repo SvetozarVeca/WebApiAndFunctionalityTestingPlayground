@@ -23,7 +23,7 @@ namespace TestProject1.tests.APITests
         }
 
         [Test, Category("APITests")]
-        public async Task UpdateContactWithWrongIdShouldReturnBadResponseMessage()
+        public async Task UpdateContactWithWrongIdShouldReturnBadRequestMessage()
         {
             IContactService contactService = new ContactService();
 
