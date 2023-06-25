@@ -22,8 +22,6 @@ namespace TestProject1.tests.APITests.ContactAPI
         {
             IContactService contactService = new ContactService();
 
-            List<ContactDTOFromDB> contacts = await contactService.GetList();
-
             string response = await contactService.Delete("wrongId");
 
             Assert.AreEqual("Bad Request", response);
