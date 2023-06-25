@@ -1,8 +1,8 @@
 ﻿using Services;
 
-namespace TestProject1.tests.APITests
+namespace TestProject1.tests.APITests.ContactAPI
 {
-  
+
     public class GetContactByIdTest
     {
         [Test, Category("APITests")]
@@ -28,7 +28,7 @@ namespace TestProject1.tests.APITests
 
             foreach (var contact in contacts)
             {
-                if (contact.Id==wrongId)
+                if (contact.Id == wrongId)
                 {
                     wrongContact = contact;
                     break;

@@ -1,9 +1,9 @@
 ﻿using Services;
 using Utilities;
 
-namespace TestProject1.tests.APITests
+namespace TestProject1.tests.APITests.ContactAPI
 {
-    
+
     public class UpdateContactTest
     {
         [Test, Category("APITests")]
@@ -33,7 +33,7 @@ namespace TestProject1.tests.APITests
             contact.Version = contacts[0].Version;
             contact.Id = "wrongId";
             contact.Owner = contacts[0].Owner;
-            
+
             string response = await contactService.Update(contact.Id, contact);
 
             Assert.AreEqual("Bad Request", response);

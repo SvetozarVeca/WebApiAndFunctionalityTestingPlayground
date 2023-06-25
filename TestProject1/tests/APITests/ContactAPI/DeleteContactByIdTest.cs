@@ -1,9 +1,9 @@
 ﻿using Services;
 
-namespace TestProject1.tests.APITests
+namespace TestProject1.tests.APITests.ContactAPI
 {
-    
-    public class DeleteContactById
+
+    public class DeleteContactByIdTest
     {
         [Test, Category("APITests")]
         public async Task DeleteContact()

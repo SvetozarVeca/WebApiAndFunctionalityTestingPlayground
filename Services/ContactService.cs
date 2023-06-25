@@ -6,54 +6,54 @@ namespace Services
     public class ContactService : BaseService, IContactService
     {      
 
-        public async Task<ContactDTOFromDB> Get(string id)
+        public async Task<ContactDTOFromDB?> Get(string id)
         {
-
+            await LogInAndAuthorize();
 
             string uri = $"https://thinking-tester-contact-list.herokuapp.com/contacts/{id}";
             
-            ContactDTOFromDB? response = await HttpClient.GetFromJsonAsync<ContactDTOFromDB>(uri);
+            ContactDTOFromDB? response = await HttpClient.GetFromJsonAsync<ContactDTOFromDB?>(uri);
 
             return response;
         }
 
-        public async Task<List<ContactDTOFromDB>> GetList()
+        public async Task<List<ContactDTOFromDB>?> GetList()
         {
             await LogInAndAuthorize();
 
             string uri = "https://thinking-tester-contact-list.herokuapp.com/contacts";
            
-            List<ContactDTOFromDB>? response = await HttpClient.GetFromJsonAsync<List<ContactDTOFromDB>>(uri);
+            List<ContactDTOFromDB>? response = await HttpClient.GetFromJsonAsync<List<ContactDTOFromDB>?>(uri);
 
             return response;
         }
 
-        public async Task<string> Update(string id, ContactDTOFromDB newContact)
+        public async Task<string?> Update(string id, ContactDTOFromDB newContact)
         {
             await LogInAndAuthorize();
 
             string uri = $"https://thinking-tester-contact-list.herokuapp.com/contacts/{id}";
            
-            List<ContactDTOFromDB> contacts = await GetList();
+            List<ContactDTOFromDB>? contacts = await GetList();
 
             if (contacts.FirstOrDefault(x=>x.Id == id)==null)
             {
-                var resultFail = await HttpClient.PutAsJsonAsync<ContactDTOFromDB>(uri, newContact);
+                var resultFail = await HttpClient.PutAsJsonAsync<ContactDTOFromDB?>(uri, newContact);
                 return resultFail.ReasonPhrase;
             }            
 
-            var result = await HttpClient.PutAsJsonAsync<ContactDTOFromDB>(uri, newContact);
+            var result = await HttpClient.PutAsJsonAsync<ContactDTOFromDB?>(uri, newContact);
 
             return result.ReasonPhrase;
         }
 
-        public async Task<string> Delete(string id)
+        public async Task<string?> Delete(string id)
         {
             await LogInAndAuthorize();
 
             string uri = $"https://thinking-tester-contact-list.herokuapp.com/contacts/{id}";
 
-            List<ContactDTOFromDB> contacts = await GetList();
+            List<ContactDTOFromDB>? contacts = await GetList();
 
             if (contacts.FirstOrDefault(x => x.Id == id) == null)
             {

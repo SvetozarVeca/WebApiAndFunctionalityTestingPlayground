@@ -1,8 +1,8 @@
 ﻿using Services;
 
-namespace TestProject1.tests.APITests
+namespace TestProject1.tests.APITests.ContactAPI
 {
-    
+
     public class GetContactListAPITest
     {
         [Test, Category("APITests")]
@@ -10,11 +10,11 @@ namespace TestProject1.tests.APITests
         {
             IContactService contactService = new ContactService();
 
-            List<ContactDTOFromDB> contacts = await contactService.GetList();                     
+            List<ContactDTOFromDB> contacts = await contactService.GetList();
 
             Assert.IsNotNull(contacts);
         }
     }
-    
+
 }
 
