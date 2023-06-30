@@ -69,12 +69,7 @@ namespace TestProject1.tests
             _driver.Value.Close();
         }
 
-        public IWebDriver GetDriver()
-        {
-            return _driver.Value;
-        }
-
-        // public IWebDriver Driver => _driver.Value; RAZMISLITE MALO O TOME
+        public IWebDriver Driver => _driver.Value;
 
 
         public void InitBrowser(string browserName)

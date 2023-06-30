@@ -9,7 +9,7 @@ namespace TestProject1.tests
         [Test, TestCaseSource("ValidLogInCredentialsAndNewContact")]
         public void AddNewContact(AppUserDTOFromUser user, ContactDTOFromUser contactEntry)
         {
-            MainPage mainPage = new MainPage(GetDriver());
+            MainPage mainPage = new MainPage(Driver);
             ContactListPage contactListPage = mainPage.ClickSubmitWithValidCredentials(user.Email, user.Password);
 
             contactListPage.WaitForAddNewContact();

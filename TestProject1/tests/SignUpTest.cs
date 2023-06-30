@@ -18,7 +18,7 @@ namespace TestProject1.tests
                 throw new ArgumentException("Not valid password");
             }
 
-            MainPage mainPage = new(GetDriver());
+            MainPage mainPage = new(Driver);
             SignUpPage signUpPage = mainPage.ClickToSignUp();
             ContactListPage contactListPage = signUpPage.SubmitSignUp(user.FirstName, user.LastName, user.Email, user.Password);
 
@@ -32,7 +32,7 @@ namespace TestProject1.tests
         [Test]
         public void SignUpWithFalseCredentialsShouldCatchErrorMsg()
         {
-            MainPage mainPage = new(GetDriver());
+            MainPage mainPage = new(Driver);
             SignUpPage signUpPage = mainPage.ClickToSignUp();
             signUpPage.SubmitSignUpWithFalseCredentials("somefirstname", "somelastname", "falseemail", "short");
 

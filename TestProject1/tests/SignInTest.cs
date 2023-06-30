@@ -9,7 +9,7 @@ namespace TestProject1.tests
         [Test, TestCaseSource("AddValidLogInCredentials"), Category("SignInTests")]
         public void ValidSignIn(AppUserDTOFromUser user)
         {
-            MainPage mainPage = new MainPage(GetDriver());
+            MainPage mainPage = new MainPage(Driver);
             ContactListPage contactListPage = mainPage.ClickSubmitWithValidCredentials(user.Email, user.Password);
 
             Assert.IsNotNull(contactListPage);
@@ -19,8 +19,8 @@ namespace TestProject1.tests
         [Test, Category("SignInTests")]
         public void InvalidSignInCatchErrorMsg()
         {
-            MainPage mainPage = new MainPage(GetDriver());
-            mainPage.ClickSubmitWithInvalidCredentials("testertester@test.com", "test111");
+            MainPage mainPage = new MainPage(Driver);
+            mainPage.ClickSubmitWithInvalidCredentials("testertwerrwwerester@test.com", "test111");
 
             mainPage.WaitForErrorMsg();
 

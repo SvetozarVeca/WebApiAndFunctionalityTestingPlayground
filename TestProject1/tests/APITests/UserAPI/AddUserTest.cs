@@ -16,10 +16,10 @@ namespace TestProject1.tests.APITests.UserAPI
 
             AppUserDTOFromUser user = new AppUserDTOFromUser
             {
-                Email = "randomemail22@email.com",
+                Email = "randomeeemail22@email.com",
                 FirstName = "Saban",
                 LastName = "Saulic",
-                Password = "randompassword"
+                Password = "randompassword12"
             };
 
             string? response = await userService.AddUser(user);
